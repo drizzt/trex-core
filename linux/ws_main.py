@@ -408,9 +408,6 @@ class build_option:
     def get_src (self):
         return self.src.file_list(top)
 
-    def get_rpath (self):
-        return self.rpath
-
     def get_link_flags(self):
         # add here basic flags
         base_flags = [];
@@ -433,12 +430,10 @@ class build_option:
 
 build_types = [
                build_option(name = "bp-sim", src = bp, use = [''],debug_mode= DEBUG_, platform = PLATFORM_64, is_pie = False,
-                            flags = ['-Wall', '-Werror', '-Wno-sign-compare', '-Wno-strict-aliasing'],
-                            rpath = ['.']),
+                            flags = ['-Wall', '-Werror', '-Wno-sign-compare', '-Wno-strict-aliasing'])
 
                build_option(name = "bp-sim", src = bp, use = [''],debug_mode= RELEASE_,platform = PLATFORM_64, is_pie = False,
-                            flags = ['-Wall', '-Werror', '-Wno-sign-compare', '-Wno-strict-aliasing'],
-                            rpath = ['.']),
+                            flags = ['-Wall', '-Werror', '-Wno-sign-compare', '-Wno-strict-aliasing'])
 
               ]
 
@@ -453,7 +448,6 @@ def build_prog (bld, build_obj):
                 source = build_obj.get_src(),
                 use = build_obj.get_use_libs(),
                 lib = ['pthread', 'z', 'dl'],
-                rpath  = bld.env.RPATH + build_obj.get_rpath(),
                 target = build_obj.get_target())
 
 
